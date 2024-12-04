@@ -13,23 +13,33 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <main className="container mx-auto px-4 py-12">
+      <main id="main-content" className="container mx-auto px-4 py-12" role="main">
         <div className="max-w-2xl mx-auto space-y-8">
-          <CitySearch onSearch={startSearch} disabled={isLoading} />
+          <section aria-label="City Search">
+            <CitySearch onSearch={startSearch} disabled={isLoading} />
+          </section>
           
           {isLoading && (
-            <div className="space-y-8">
+            <section aria-label="Analysis Progress" className="space-y-8">
               <LoadingAnimation />
               <ProgressIndicator 
                 steps={ANALYSIS_STEPS}
                 currentStep={currentStep}
               />
-            </div>
+            </section>
           )}
           
-          {showResult && <Result onReset={reset} city={city} />}
+          {showResult && (
+            <section aria-label="Weather Results">
+              <Result onReset={reset} city={city} />
+            </section>
+          )}
         </div>
       </main>
+      
+      <footer className="mt-8 text-center text-sm text-gray-600">
+        <p>© {new Date().getFullYear()} AI Weather Analysis. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
